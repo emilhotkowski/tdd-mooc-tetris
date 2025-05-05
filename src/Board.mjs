@@ -19,7 +19,7 @@ export class Board {
   tick() {
     for(var i = this.height-2; i >= 0; i--) { // TODO: make sure height is at least 1
       for(var j = 0; j < this.width; j++) {
-        if(this.board[i][j] == 'X' && this.board[i+1][j] =='.') {
+        if(this.board[i][j] != '.' && this.board[i+1][j] =='.') {
           [this.board[i][j], this.board[i+1][j]] = [this.board[i+1][j], this.board[i][j]];
         }
       }
