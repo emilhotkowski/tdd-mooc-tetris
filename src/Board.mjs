@@ -5,6 +5,7 @@ export class Board {
   constructor(width, height) {
     this.width = width;
     this.height = height;
+    this.hasFalling = false;
     this.board = new Array(height);
     for(var i = 0; i < height; i++) {
       this.board[i] = new Array(width);
@@ -13,20 +14,19 @@ export class Board {
   }
 
   drop(block) {
-    for(var i = 0; i < this.width-1; i++) {
-      for(var j = 0; j < this.width; j++) { 
-        if(this.board[i][j] != '.' && this.board[i+1][j] == '.') {
+    if(this.hasFalling == true) {
           throw new Error('already falling');
-        }
-      }
     }
     this.board[0][1] = block;
+    this.hasFalling = true;
   }
 
   tick() {
+    this.hasFalling = false;
     for(var i = this.height-2; i >= 0; i--) { // TODO: make sure height is at least 1
       for(var j = 0; j < this.width; j++) {
         if(this.board[i][j] != '.' && this.board[i+1][j] =='.') {
+          this.hasFalling = true;
           [this.board[i][j], this.board[i+1][j]] = [this.board[i+1][j], this.board[i][j]];
         }
       }
