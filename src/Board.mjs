@@ -13,6 +13,13 @@ export class Board {
   }
 
   drop(block) {
+    for(var i = 0; i < this.width-1; i++) {
+      for(var j = 0; j < this.width; j++) { 
+        if(this.board[i][j] != '.' && this.board[i+1][j] == '.') {
+          throw new Error('already falling');
+        }
+      }
+    }
     this.board[0][1] = block;
   }
 
